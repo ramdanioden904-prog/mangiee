@@ -3,262 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SELAMAT ULANG TAHUN, TEH MANGIE! - The Ultimate Surprise</title>
+    <title>Selamat Ulang Tahun, Teh Mangie! 🎉</title>
+    
     <style>
-        /* Gaya CSS */
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #ff9a8f 0%, #ff6d7d 100%);
-            color: #333;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
+            background-color: #f7e8ee; /* Warna latar belakang yang manis */
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
-        }
-
-        header {
+            margin: 0;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            position: fixed;
-            top: 0;
-            z-index: 10;
-        }
-
-        h1 {
-            color: #b73e51;
-            font-size: 2.5em;
-            text-shadow: 2px 2px #ffe5ec;
-            margin: 10px 0;
         }
 
         .container {
-            width: 90%;
-            max-width: 1200px;
-            margin-top: 120px; /* Jarak dari header fixed */
-            padding: 20px;
-            background: #fff;
+            background-color: #ffffff;
+            padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #ff69b4; /* Pink cerah */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .photo-card {
+            margin: 20px 0;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #ffd700; /* Emas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .message-box {
+            background-color: #fff0f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #ff69b4;
+            text-align: left;
+        }
+
+        .message-box h2 {
+            color: #8a2be2; /* Ungu */
+            margin-top: 0;
+        }
+
+        .signature {
+            margin-top: 15px;
+            font-style: italic;
+            text-align: right;
+            color: #6a5acd;
+        }
+
+        #playVideoButton {
+            background-color: #ff69b4;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
             margin-bottom: 20px;
         }
 
-        /* COUNTDOWN STYLE */
-        #countdown-box {
-            background-color: #ff3366;
-            color: white;
-            padding: 30px;
-            margin: 30px 0;
-            border-radius: 10px;
-            animation: pulse 1.5s infinite alternate;
+        #playVideoButton:hover {
+            background-color: #ff85c1;
+            transform: translateY(-2px);
         }
 
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
-        }
-
-        #countdown {
-            font-size: 3em;
-            font-weight: bold;
-            letter-spacing: 3px;
-        }
-        
-        /* KEJUTAN CONTENT STYLE (Awalnya tersembunyi) */
-        #surprise-content {
-            display: none; /* Awalnya sembunyikan konten kejutan */
-            text-align: left;
-            padding-top: 30px;
-        }
-
-        /* VIDEO MP4 STYLE */
-        .video-wrapper {
-            position: relative;
-            margin: 20px auto;
-            max-width: 700px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .video-wrapper video {
-            width: 100%;
+        #birthdayVideo {
+            max-width: 100%;
             height: auto;
             border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* FOTO GALLERY STYLE */
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
+        .hidden-video {
+            display: none;
         }
 
-        .gallery img {
-            width: 100%;
-            max-width: 200px;
-            height: auto;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .gallery img:hover {
-            transform: scale(1.05) rotate(2deg);
-        }
-
-        /* PESAN MENGGEJUTKAN STYLE */
-        .shock-message {
-            background-color: #ffe5ec;
-            border-left: 5px solid #ff3366;
-            padding: 20px;
-            margin: 30px 0;
-            border-radius: 8px;
-        }
-
-        .shock-message h2 {
-            color: #b73e51;
-            font-size: 1.8em;
-        }
-
-        .shock-message p {
-            font-size: 1.2em;
-            line-height: 1.6;
-        }
-
-        .final-surprise {
-            background: #ff3366;
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            font-weight: bold;
-            animation: heartbeat 1s infinite;
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-
-        footer {
-            margin-top: 40px;
-            padding: 10px;
-            font-size: 0.8em;
-            color: #888;
+        /* Responsif untuk layar yang lebih kecil */
+        @media (max-width: 450px) {
+            h1 {
+                font-size: 2em;
+            }
+            .container {
+                padding: 20px 15px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>OMG, TEH MANGIE! JANGAN JANTUNGAN DULU, YA!</h1>
-    </header>
-
     <div class="container">
+        <h1>Happy Birthday Teh Mangie!</h1>
         
-        <div id="countdown-box">
-            <p style="font-size: 1.2em; margin-bottom: 15px;">Kejutan Besar Dibuka Dalam...</p>
-            <div id="countdown">LOADING...</div>
+        <div class="photo-card">
+            <img src="Happy day^^ (3).jpg" alt="Foto Teh Mangie" class="profile-photo">
         </div>
 
-        <div id="surprise-content">
-            
-            <hr>
-            <h2>🎬 VIDEO RANDOM TEH MANGIE YANG TERSEMBUNYI! 🎬</h2>
-            <p style="text-align: center;">Tonton ini dulu, sebelum kamu siap menghadapi kejutan di bawah!</p>
-
-            <div class="video-wrapper">
-                <video controls autoplay muted>
-                    <source src="lv_7558842258745789757_20251015222641.mp4" type="video/mp4">
-                    Browser Anda tidak mendukung tag video.
-                </video>
-            </div>
-            
-            <hr>
-            <h2>📸 GALERI MEMORI NOSTALGIA 📸</h2>
-            <p style="text-align: center;">Momen-momen paling gokil dan mengharukan yang pernah kita lalui. Swipe!</p>
-
-            <div class="gallery">
-                <img src="foto1.jpg" alt="Momen Lucu 1"> 
-                <img src="foto2.jpg" alt="Momen Konyol 2">
-                <img src="foto3.jpg" alt="Momen Hangat 3">
-                <img src="foto4.jpg" alt="Momen Terbaik 4">
-                <p style="width: 100%; margin-top: 15px; font-size: 0.9em; color: #888; text-align: center;">(Pastikan semua file foto dan video berada di folder yang sama dengan file HTML ini)</p>
-            </div>
-            
-            <hr>
-            
-            <div class="shock-message">
-                <h2 style="text-align: center;">💌 PESAN PALING RAHASIA DARI KAMI SEMUA 💌</h2>
-                <p>Selamat ulang tahun yang ke-XX, Teh Mangie! Kamu adalah sinar matahari di tengah hari-hari yang mendung. Terima kasih sudah menjadi sosok yang kuat, penyayang, dan sangat konyol! Kami beruntung memilikimu.</p>
-                <p>Semua harapan terbaik kami panjatkan untukmu. Semoga semua impianmu terwujud tahun ini.</p>
-                
-                <br>
-                <div class="final-surprise">
-                    <p style="margin: 0; text-align: center;">🎉 KEJUTAN NYATA: KAMI SUDAH MEMESAN <strong style="font-size: 1.5em;">SESI FOTO PROFESIONAL KHUSUS HARI INI</strong>! SIAP-SIAP PAKAI BAJU TERBAIK, FOTOGRAFER AKAN DATANG PUKUL 15.00! 🎉</p>
-                    </div>
-                
-                <p style="margin-top: 20px; font-style: italic; text-align: right;">With all our love, <br>The Ultimate Surprise Team</p>
-            </div>
-
+        <div class="message-box">
+            <h2>Dari Kami Tim Packing!</h2>
+            <p>Teh Mangie tersayang,</p>
+            <p>Selamat ulang tahun yang ke-[**Umur**]! Semoga panjang umur, sehat selalu, rezekinya lancar terus, dan selalu bahagia. Terima kasih sudah menjadi tim yang solid dan ceria. Semoga semua doa terbaik terkabul! Tetap semangat yaaa, Teh Mangieee!</p>
+            <p class="signature">- Dari Kami yang selalu packing bersama teh mangiee😉</p>
         </div>
-
+        
+        <div class="video-section">
+            <button id="playVideoButton">
+                Klik Untuk Pesan Rahasia! 💖
+            </button>
+            
+            <video id="birthdayVideo" controls class="hidden-video" width="100%">
+                <source src="lv_7558842258745789757_20251015222641.mp4" type="video/mp4">
+                Browser Anda tidak mendukung tag video.
+            </video>
+        </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 The Ultimate Surprise. Made with love for Teh Mangie.</p>
-    </footer>
-
     <script>
-        // JAVASCRIPT UNTUK COUNTDOWN TIMER
-        
-        // // Format: 'Month Day, Year Hour:Minute:Second' (Gunakan bahasa Inggris)
-        // Contoh: "October 16, 2025 00:00:00"
-        const birthdayDate = new Date("October 16, 2025 00:00:00").getTime(); 
+        document.addEventListener('DOMContentLoaded', function() {
+            const playButton = document.getElementById('playVideoButton');
+            const videoElement = document.getElementById('birthdayVideo');
 
-        const countdownFunction = setInterval(function() {
-            
-            const now = new Date().getTime();
-            const distance = birthdayDate - now;
-            
-            // Perhitungan waktu
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            const countdownDisplay = document.getElementById("countdown");
-            
-            // Tampilkan hasil di elemen
-            if (distance > 0) {
-                countdownDisplay.innerHTML = days + " Hari " + hours + " Jam " + minutes + " Menit " + seconds + " Detik ";
-            }
+            // Tambahkan event listener untuk tombol
+            playButton.addEventListener('click', function() {
+                // Cek apakah video sedang tersembunyi
+                if (videoElement.classList.contains('hidden-video')) {
+                    // Tampilkan video
+                    videoElement.classList.remove('hidden-video');
+                    
+                    // Coba putar video
+                    videoElement.play()
+                        .then(() => {
+                            // Berhasil diputar
+                            playButton.textContent = "Mau Liat yaaa! 🥳";
+                        })
+                        .catch(error => {
+                            // Gagal putar otomatis (kebijakan browser)
+                            console.error("Gagal putar otomatis:", error);
+                            playButton.textContent = "Video Sudah Tampil! (Silakan Klik Play di Video) 👆";
+                        });
+                } else {
+                    // Jika video sudah tampil, bisa diatur untuk diulang atau dihentikan/dimulai
+                    if (videoElement.paused) {
+                        videoElement.play();
+                        playButton.textContent = "Video Sedang Diputar... ⏯️";
+                    } else {
+                        videoElement.pause();
+                        playButton.textContent = "Mau Liat yaa! 🥳";
+                    }
+                }
+            });
 
-            // Jika hitungan mundur selesai
-            if (distance < 0) {
-                clearInterval(countdownFunction);
-                document.getElementById("countdown-box").innerHTML = 
-                    "<h2 style='color:white; margin:0;'>SELAMAT ULANG TAHUN, TEH MANGIE!</h2><p style='color:white;'>KEJUTANNYA SUDAH SIAP! GULIR KE BAWAH!</p>";
-                
-                // Tampilkan konten kejutan
-                document.getElementById("surprise-content").style.display = "block";
-                
-                // Gulir otomatis ke konten kejutan (opsional)
-                setTimeout(() => {
-                    document.getElementById('surprise-content').scrollIntoView({ behavior: 'smooth' });
-                }, 1000);
-            }
-        }, 1000);
+            // Opsional: Untuk mengembalikan teks tombol setelah video selesai diputar
+            videoElement.addEventListener('ended', function() {
+                playButton.textContent = "Klik Untuk Nonton Lagi! 🔄";
+            });
+        });
     </script>
+
 </body>
 </html>
