@@ -40,7 +40,7 @@
             margin-top: 20px;
         }
 
-        /* ... (Styling Judul dan Paragraf lainnya tetap sama) ... */
+        /* Styling Judul dan Paragraf */
         h1 {
             font-family: 'Pacifico', cursive;
             color: #e91e63;
@@ -73,22 +73,29 @@
             display: block; 
             transition: border-color 0.4s;
         }
-        
-        /* Styling Video */
+
+        /* Styling Video Container */
         .video-container {
-            margin: 25px auto;
+            margin: 15px 0 0; /* Jarak atas/bawah */
             max-width: 100%;
             border-radius: 10px;
             overflow: hidden; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            
-            /* CSS TAMBAHAN: Semubunyikan secara default */
-            display: none; 
         }
         .birthday-video {
             width: 100%;
             height: auto;
             display: block;
+        }
+        
+        /* Styling Pesan Tersembunyi - Sekarang ini adalah container utama untuk video */
+        #special-content {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px dashed #e91e63; /* Menarik perhatian */
+            border-radius: 15px;
+            display: none; /* SEMBUNYIKAN SECARA DEFAULT */
+            animation: slideIn 1s ease-out;
         }
 
         /* Tombol */
@@ -111,7 +118,7 @@
             box-shadow: 0 8px 15px rgba(0, 188, 212, 0.4);
         }
 
-        /* ... (Keyframes lainnya tetap sama) ... */
+        /* Keyframes untuk animasi */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -120,6 +127,10 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 480px) {
@@ -143,45 +154,48 @@
         <p>Di hari yang istimewa ini, semoga Teh Mangie selalu diberikan kesehatan, kebahagiaan, dan segala cita-cita terbaik bisa tercapai.</p>
         <p>Semoga tahun ini membawa lebih banyak tawa dan momen-momen indah. Dari kami yang selalu menyayangimu!</p>
 
-        <div class="video-container" id="videoContainer"> 
-            <video 
-                src="lv_7558842258745789757_20251015222641.mp4" 
-                controls 
-                loop 
-                muted 
-                autoplay 
-                class="birthday-video"
-                id="birthdayVideo"
-            >
-                Maaf, browser Anda tidak mendukung tag video.
-            </video>
-        </div>
-        <button class="sparkle-button" onclick="celebrate()">Klik untuk Kejutan!</button>
+        <button class="sparkle-button" onclick="celebrate(this)">Klik untuk Kejutan!</button>
         
-        <p id="special-message" style="color: #e91e63; font-weight: bold; margin-top: 20px; display: none;">"Hidup ini adalah hadiah terindah. Nikmati setiap detiknya, Mangie!"</p>
-    </div>
+        <div id="special-content"> 
+            
+            <p style="color: #e91e63; font-weight: bold; margin-bottom: 10px;">
+                "Hidup ini adalah hadiah terindah. Nikmati setiap detiknya, Mangie! Ini hadiah spesial dariku:"
+            </p>
+
+            <div class="video-container">
+                <video 
+                    src="lv_7558842258745789757_20251015222641.mp4" 
+                    controls 
+                    loop 
+                    muted 
+                    autoplay 
+                    class="birthday-video"
+                    id="birthdayVideo"
+                >
+                    Maaf, browser Anda tidak mendukung tag video.
+                </video>
+            </div>
+        </div>
+        </div>
 
     <script>
-        // Ambil elemen video dan container
-        const videoContainer = document.getElementById('videoContainer');
+        const specialContent = document.getElementById('special-content');
         const videoElement = document.getElementById('birthdayVideo');
 
-        function celebrate() {
-            // 1. Tampilkan video container
-            videoContainer.style.display = 'block';
+        function celebrate(button) {
+            
+            // 1. Tampilkan konten spesial (termasuk video)
+            specialContent.style.display = 'block';
 
             // 2. Putar video
-            // Karena kita menggunakan autoplay dan muted di tag <video>, 
-            // kita hanya perlu memastikan display-nya 'block'.
-            // Namun, untuk memastikan video benar-benar mulai (jika browser memblokir autoplay), 
-            // kita bisa coba memanggil .play() setelah elemen ditampilkan:
             videoElement.play().catch(error => {
                 console.log("Autoplay diblokir, pengguna harus mengklik play.");
             });
 
-
-            // 3. Tampilkan pesan tersembunyi
-            document.getElementById('special-message').style.display = 'block';
+            // 3. Nonaktifkan tombol (agar tidak bisa diklik berulang kali)
+            button.disabled = true;
+            button.textContent = "Kejutan Dibuka!";
+            button.style.background = "#aaaaaa";
 
             // 4. Aktifkan efek kembang api (Confetti)
             confetti({
@@ -200,4 +214,9 @@
             image.style.borderColor = '#e91e63';
         });
         image.addEventListener('mouseout', () => {
-            image.style.borderColor = '#00bcd4
+            image.style.borderColor = '#00bcd4';
+        });
+    </script>
+
+</body>
+</html>
