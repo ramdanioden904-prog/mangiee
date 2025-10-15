@@ -13,7 +13,7 @@
         /* CSS Utama */
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f06d8c, #ff9a9e); /* Gradien Pink-Merah */
+            background: linear-gradient(135deg, #f06d8c, #ff9a9e); 
             color: #ffffff;
             text-align: center;
             padding: 20px;
@@ -23,7 +23,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden; /* Mencegah scroll horizontal */
+            overflow-x: hidden;
         }
 
         .card {
@@ -40,13 +40,9 @@
             margin-top: 20px;
         }
 
-        .card:hover {
-            transform: scale(1.02);
-        }
-
-        /* Styling Judul */
+        /* ... (Styling Judul dan Paragraf lainnya tetap sama) ... */
         h1 {
-            font-family: 'Pacifico', cursive; /* Font tulisan tangan */
+            font-family: 'Pacifico', cursive;
             color: #e91e63;
             font-size: 3em;
             margin-bottom: 5px;
@@ -59,7 +55,6 @@
             margin-top: 0;
         }
 
-        /* Styling Paragraf */
         p {
             font-size: 1.1em;
             line-height: 1.7;
@@ -69,28 +64,31 @@
         /* Styling Gambar Profil */
         .birthday-image {
             width: 100%;
-            max-width: 200px; /* Ukuran gambar maksimal */
+            max-width: 200px; 
             height: auto;
-            border-radius: 50%; /* Membuat gambar bulat */
+            border-radius: 50%; 
             border: 5px solid #00bcd4;
             object-fit: cover;
-            margin: 20px auto; /* Tengah dan beri jarak */
-            display: block; /* Agar margin auto bekerja */
+            margin: 20px auto; 
+            display: block; 
             transition: border-color 0.4s;
         }
         
         /* Styling Video */
         .video-container {
-            margin: 25px auto; /* Tengah dan beri jarak */
+            margin: 25px auto;
             max-width: 100%;
             border-radius: 10px;
-            overflow: hidden; /* Pastikan video tidak keluar dari border-radius */
+            overflow: hidden; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            
+            /* CSS TAMBAHAN: Semubunyikan secara default */
+            display: none; 
         }
         .birthday-video {
             width: 100%;
             height: auto;
-            display: block; /* Menghilangkan spasi ekstra di bawah video */
+            display: block;
         }
 
         /* Tombol */
@@ -105,7 +103,7 @@
             transition: background 0.3s, box-shadow 0.3s;
             text-transform: uppercase;
             font-weight: bold;
-            margin-top: 15px; /* Beri jarak dari elemen di atasnya */
+            margin-top: 15px; 
         }
 
         .sparkle-button:hover {
@@ -113,7 +111,7 @@
             box-shadow: 0 8px 15px rgba(0, 188, 212, 0.4);
         }
 
-        /* Keyframes untuk animasi */
+        /* ... (Keyframes lainnya tetap sama) ... */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -124,7 +122,6 @@
             100% { transform: scale(1); }
         }
 
-        /* Responsif untuk layar lebih kecil */
         @media (max-width: 480px) {
             h1 { font-size: 2.2em; }
             h2 { font-size: 1.2em; }
@@ -137,7 +134,8 @@
 <body>
 
     <div class="card">
-        <img src="images/foto-tehmangie.jpg" alt="Foto Teh Mangie" class="birthday-image" id="target-image">
+        
+        <img src="Happy day^^ (3).jpg" alt="Foto Teh Mangie" class="birthday-image" id="target-image">
 
         <h1>Selamat Ulang Tahun!</h1>
         <h2>Untuk Teh Mangie Tersayang ❤️</h2>
@@ -145,22 +143,7 @@
         <p>Di hari yang istimewa ini, semoga Teh Mangie selalu diberikan kesehatan, kebahagiaan, dan segala cita-cita terbaik bisa tercapai.</p>
         <p>Semoga tahun ini membawa lebih banyak tawa dan momen-momen indah. Dari kami yang selalu menyayangimu!</p>
 
-        
-
-    <script>
-        function celebrate() {
-            // 1. Tampilkan pesan tersembunyi
-            document.getElementById('special-message').style.display = 'block';
-
-            // 2. Aktifkan efek kembang api (Confetti)
-            confetti({
-                particleCount: 150,
-                spread: 90,
-                origin: { y: 0.6 }
-            });
-            
-            // 3. Tambahkan efek pop-up sederhana
-            alert("<div class="video-container">
+        <div class="video-container" id="videoContainer"> 
             <video 
                 src="lv_7558842258745789757_20251015222641.mp4" 
                 controls 
@@ -168,15 +151,47 @@
                 muted 
                 autoplay 
                 class="birthday-video"
+                id="birthdayVideo"
             >
                 Maaf, browser Anda tidak mendukung tag video.
             </video>
         </div>
-
         <button class="sparkle-button" onclick="celebrate()">Klik untuk Kejutan!</button>
         
         <p id="special-message" style="color: #e91e63; font-weight: bold; margin-top: 20px; display: none;">"Hidup ini adalah hadiah terindah. Nikmati setiap detiknya, Mangie!"</p>
-    </div>");
+    </div>
+
+    <script>
+        // Ambil elemen video dan container
+        const videoContainer = document.getElementById('videoContainer');
+        const videoElement = document.getElementById('birthdayVideo');
+
+        function celebrate() {
+            // 1. Tampilkan video container
+            videoContainer.style.display = 'block';
+
+            // 2. Putar video
+            // Karena kita menggunakan autoplay dan muted di tag <video>, 
+            // kita hanya perlu memastikan display-nya 'block'.
+            // Namun, untuk memastikan video benar-benar mulai (jika browser memblokir autoplay), 
+            // kita bisa coba memanggil .play() setelah elemen ditampilkan:
+            videoElement.play().catch(error => {
+                console.log("Autoplay diblokir, pengguna harus mengklik play.");
+            });
+
+
+            // 3. Tampilkan pesan tersembunyi
+            document.getElementById('special-message').style.display = 'block';
+
+            // 4. Aktifkan efek kembang api (Confetti)
+            confetti({
+                particleCount: 150,
+                spread: 90,
+                origin: { y: 0.6 }
+            });
+            
+            // 5. Tambahkan efek pop-up sederhana
+            alert("Happy Birthday, Teh Mangie! 🎉🥳");
         }
 
         // JS sederhana untuk mengganti warna border saat hover/sentuh pada gambar
@@ -185,9 +200,4 @@
             image.style.borderColor = '#e91e63';
         });
         image.addEventListener('mouseout', () => {
-            image.style.borderColor = '#00bcd4';
-        });
-    </script>
-
-</body>
-</html>
+            image.style.borderColor = '#00bcd4
