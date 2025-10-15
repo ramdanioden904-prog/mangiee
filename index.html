@@ -3,20 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise Ulang Tahun Teh Mangiee!</title>
-    <link rel="stylesheet" href="style.css"> </head>
-<body>
-    <div class="container">
-        <h1>Selamat Ulang Tahun, Teh Mangiee!</h1>
-        <p>Kami punya kejutan video spesial untukmu. Klik tombol di bawah ini!</p>
-        <button id="bukaKejutan">Buka Kejutan Sekarang</button>
+    <title>Selamat Ulang Tahun, Teh Mangie! 🎉</title>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7e8ee; /* Warna latar belakang yang manis */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
 
-        <div id="videoContainer" style="display:none;">
-            <iframe width="560" height="315" src="lv_7558842258745789757_20251015222641.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #ff69b4; /* Pink cerah */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .photo-card {
+            margin: 20px 0;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #ffd700; /* Emas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .message-box {
+            background-color: #fff0f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #ff69b4;
+            text-align: left;
+        }
+
+        .message-box h2 {
+            color: #8a2be2; /* Ungu */
+            margin-top: 0;
+        }
+
+        .signature {
+            margin-top: 15px;
+            font-style: italic;
+            text-align: right;
+            color: #6a5acd;
+        }
+
+        #playVideoButton {
+            background-color: #ff69b4;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            margin-bottom: 20px;
+        }
+
+        #playVideoButton:hover {
+            background-color: #ff85c1;
+            transform: translateY(-2px);
+        }
+
+        #birthdayVideo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .hidden-video {
+            display: none;
+        }
+
+        /* Responsif untuk layar yang lebih kecil */
+        @media (max-width: 450px) {
+            h1 {
+                font-size: 2em;
+            }
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Happy Birthday Teh Mangie!</h1>
+        
+        <div class="photo-card">
+            <img src="Happy day^^ (3).jpg" alt="Foto Teh Mangie" class="profile-photo">
         </div>
 
-        <p id="pesanTambahan" style="display:none;">Semoga harimu penuh kebahagiaan!</p>
+        <div class="message-box">
+            <h2>Dari Kami Tim Packing!</h2>
+            <p>Teh Mangie tersayang,</p>
+            <p>Selamat ulang tahun yang ke-[**Umur**]! Semoga panjang umur, sehat selalu, rezekinya lancar terus, dan selalu bahagia. Terima kasih sudah menjadi tim yang solid dan ceria. Semoga semua doa terbaik terkabul! Tetap semangat dan gokil ya, Teh!</p>
+            <p class="signature">- Tim Packing Favoritmu 😉</p>
+        </div>
+        
+        <div class="video-section">
+            <button id="playVideoButton">
+                Klik Untuk Pesan Rahasia! 💖
+            </button>
+            
+            <video id="birthdayVideo" controls class="hidden-video" width="100%">
+                <source src="lv_7558842258745789757_20251015222641.mp4" type="video/mp4">
+                Browser Anda tidak mendukung tag video.
+            </video>
+        </div>
     </div>
 
-    <script src="script.js"></script> </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const playButton = document.getElementById('playVideoButton');
+            const videoElement = document.getElementById('birthdayVideo');
+
+            // Tambahkan event listener untuk tombol
+            playButton.addEventListener('click', function() {
+                // Cek apakah video sedang tersembunyi
+                if (videoElement.classList.contains('hidden-video')) {
+                    // Tampilkan video
+                    videoElement.classList.remove('hidden-video');
+                    
+                    // Coba putar video
+                    videoElement.play()
+                        .then(() => {
+                            // Berhasil diputar
+                            playButton.textContent = "Tonton Lagi Video Ucapan Ini! 🥳";
+                        })
+                        .catch(error => {
+                            // Gagal putar otomatis (kebijakan browser)
+                            console.error("Gagal putar otomatis:", error);
+                            playButton.textContent = "Video Sudah Tampil! (Silakan Klik Play di Video) 👆";
+                        });
+                } else {
+                    // Jika video sudah tampil, bisa diatur untuk diulang atau dihentikan/dimulai
+                    if (videoElement.paused) {
+                        videoElement.play();
+                        playButton.textContent = "Video Sedang Diputar... ⏯️";
+                    } else {
+                        videoElement.pause();
+                        playButton.textContent = "Tonton Lagi Video Ucapan Ini! 🥳";
+                    }
+                }
+            });
+
+            // Opsional: Untuk mengembalikan teks tombol setelah video selesai diputar
+            videoElement.addEventListener('ended', function() {
+                playButton.textContent = "Klik Untuk Nonton Lagi! 🔄";
+            });
+        });
+    </script>
+
+</body>
 </html>
