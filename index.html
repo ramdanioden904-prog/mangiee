@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Teh Mangie! 🥳</title>
+    <title>🌟 Happy Birthday Teh Mangie! 🥳</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
 
     <style>
         /* CSS Utama */
@@ -23,9 +24,59 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden; 
+            position: relative;
         }
 
+        /* OVERLAY PEMBUKA */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #e91e63, #ff9800);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+            color: white;
+        }
+        #loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none; 
+        }
+        #loading-overlay h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: bounceIn 1s ease-out;
+        }
+        #loading-overlay p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            animation: fadeIn 1.5s ease-out;
+        }
+        #start-button {
+            background-color: #00bcd4;
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            animation: pulse 1.5s infinite;
+        }
+        #start-button:hover {
+            background-color: #0097a7;
+            transform: scale(1.05);
+        }
+
+        /* KARTU UTAMA */
         .card {
             background-color: rgba(255, 255, 255, 0.95);
             color: #333;
@@ -34,53 +85,77 @@
             max-width: 90%;
             width: 500px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1.5s ease-out;
-            transform: scale(1);
-            transition: transform 0.5s;
+            transform: scale(0.8); 
+            opacity: 0; 
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out;
             margin-top: 20px;
+            z-index: 100;
+        }
+        .card.active {
+            transform: scale(1); 
+            opacity: 1;
         }
 
         /* Styling Judul dan Paragraf */
         h1 {
             font-family: 'Pacifico', cursive;
             color: #e91e63;
-            font-size: 3em;
+            font-size: 3.5em; 
             margin-bottom: 5px;
-            animation: pulse 2s infinite;
+            animation: popIn 1s ease-out forwards; 
+            opacity: 0; 
         }
+        .card.active h1 { animation-delay: 0.5s; } 
 
         h2 {
-            font-size: 1.5em;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8em;
             color: #ff9800;
             margin-top: 0;
+            animation: slideUp 1s ease-out forwards;
+            opacity: 0;
         }
+        .card.active h2 { animation-delay: 0.7s; }
 
         p {
             font-size: 1.1em;
             line-height: 1.7;
             margin-bottom: 20px;
+            animation: slideUp 1s ease-out forwards;
+            opacity: 0;
         }
+        .card.active p { animation-delay: 0.9s; }
 
         /* Styling Gambar Profil */
         .birthday-image {
             width: 100%;
-            max-width: 200px; 
+            max-width: 220px; 
             height: auto;
             border-radius: 50%; 
-            border: 5px solid #00bcd4;
+            border: 7px solid #00bcd4; 
+            box-shadow: 0 0 20px rgba(0, 188, 212, 0.5); 
             object-fit: cover;
             margin: 20px auto; 
             display: block; 
-            transition: border-color 0.4s;
+            transition: border-color 0.4s, transform 0.3s;
+            animation: zoomIn 1s ease-out forwards;
+            opacity: 0;
+        }
+        .card.active .birthday-image { animation-delay: 0.3s; }
+        .birthday-image:hover {
+            transform: scale(1.05);
+            border-color: #e91e63;
         }
 
         /* Styling Video Container */
         .video-container {
-            margin: 15px 0 0; /* Jarak atas/bawah */
+            margin: 15px auto 0; 
             max-width: 100%;
             border-radius: 10px;
             overflow: hidden; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease-out forwards;
+            opacity: 0; 
         }
         .birthday-video {
             width: 100%;
@@ -88,79 +163,143 @@
             display: block;
         }
         
-        /* Styling Pesan Tersembunyi - Sekarang ini adalah container utama untuk video */
+        /* Styling Pesan Tersembunyi - Container untuk video dan pesan teks */
         #special-content {
-            margin-top: 20px;
-            padding: 20px;
-            border: 2px dashed #e91e63; /* Menarik perhatian */
-            border-radius: 15px;
-            display: none; /* SEMBUNYIKAN SECARA DEFAULT */
-            animation: slideIn 1s ease-out;
+            margin-top: 25px;
+            padding: 25px;
+            border: 3px dashed #e91e63; 
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.1); 
+            display: none; 
+            animation: fadeIn 1s ease-out forwards; 
+            color: #e91e63; 
         }
-
+        #special-content p {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #e91e63;
+            margin-bottom: 15px;
+            opacity: 1; 
+            animation: none; 
+        }
+        
         /* Tombol */
         .sparkle-button {
-            background: #00bcd4;
+            background: linear-gradient(45deg, #00bcd4, #00e5ff); 
             color: white;
-            padding: 12px 30px;
+            padding: 15px 35px;
             border: none;
             border-radius: 50px;
-            font-size: 1.1em;
+            font-size: 1.2em;
             cursor: pointer;
-            transition: background 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
             text-transform: uppercase;
             font-weight: bold;
-            margin-top: 15px; 
+            margin-top: 25px; 
+            box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
         .sparkle-button:hover {
-            background: #0097a7;
-            box-shadow: 0 8px 15px rgba(0, 188, 212, 0.4);
+            background: linear-gradient(45deg, #0097a7, #00c7d7);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 188, 212, 0.5);
         }
+        .sparkle-button:active {
+            transform: translateY(0);
+        }
+        /* Efek kilau pada tombol */
+        .sparkle-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: skewX(-20deg);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        .sparkle-button:hover::before {
+            left: 100%;
+        }
+
 
         /* Keyframes untuk animasi */
         @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            80% { opacity: 1; transform: scale(1.1); }
             100% { transform: scale(1); }
         }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
         }
 
+
         @media (max-width: 480px) {
-            h1 { font-size: 2.2em; }
-            h2 { font-size: 1.2em; }
+            h1 { font-size: 2.5em; }
+            h2 { font-size: 1.4em; }
             p { font-size: 1em; }
             .card { padding: 25px 15px; }
-            .sparkle-button { padding: 10px 20px; font-size: 1em; }
+            .sparkle-button { padding: 12px 25px; font-size: 1em; }
+            #loading-overlay h2 { font-size: 2.2em; }
+            #loading-overlay p { font-size: 1em; }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
+    
+<div id="loading-overlay">
+        <h2>🎉 Selamat Ulang Tahun 🎉</h2>
+        <p>Ada kejutan spesial untuk Teh Mangie!</p>
+        <button id="start-button">Mulai</button>
+    </div>
+
+    <div class="card" id="birthdayCard">
         
         <img src="Happy day^^ (3).jpg" alt="Foto Teh Mangie" class="birthday-image" id="target-image">
 
         <h1>Selamat Ulang Tahun!</h1>
-        <h2>Untuk Teh Mangie Tersayang ❤️</h2>
+        <h2>Untuk Teh Mangieee🎊🎂🎊</h2>
         
         <p>Di hari yang istimewa ini, semoga Teh Mangie selalu diberikan kesehatan, kebahagiaan, dan segala cita-cita terbaik bisa tercapai.</p>
         <p>Semoga tahun ini membawa lebih banyak tawa dan momen-momen indah. Dari kami yang selalu menyayangimu!</p>
 
-        <button class="sparkle-button" onclick="celebrate(this)">Klik untuk Kejutan!</button>
+        <button class="sparkle-button" onclick="revealSurprise(this)">Buka Kejutan Spesial!</button>
         
         <div id="special-content"> 
             
-            <p style="color: #e91e63; font-weight: bold; margin-bottom: 10px;">
-                "Hidup ini adalah hadiah terindah. Nikmati setiap detiknya, Mangie! Ini hadiah spesial dariku:"
-            </p>
+            <p>"Hidup ini adalah hadiah terindah. Nikmati setiap detiknya, Mangie! Ini hadiah spesial dariku:"</p>
 
             <div class="video-container">
                 <video 
@@ -176,35 +315,67 @@
                 </video>
             </div>
         </div>
-        </div>
+    </div>
 
-    <script>
+    
+<script>
+        // Elemen-elemen DOM
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const startButton = document.getElementById('start-button');
+        const birthdayCard = document.getElementById('birthdayCard');
         const specialContent = document.getElementById('special-content');
         const videoElement = document.getElementById('birthdayVideo');
 
-        function celebrate(button) {
-            
+        // --- FUNGSI PEMBUKA WEBINYA ---
+        startButton.addEventListener('click', () => {
+            loadingOverlay.classList.add('hidden'); // Sembunyikan overlay
+            birthdayCard.classList.add('active'); // Aktifkan kartu utama
+
+            // Tidak ada background audio yang diputar
+        });
+
+
+        // --- FUNGSI KEJUTAN UTAMA ---
+        function revealSurprise(button) {
             // 1. Tampilkan konten spesial (termasuk video)
             specialContent.style.display = 'block';
 
-            // 2. Putar video
+            // 2. Putar video dan UN-MUTE
+            videoElement.muted = false; // Matikan mute agar suara video terdengar
             videoElement.play().catch(error => {
-                console.log("Autoplay diblokir, pengguna harus mengklik play.");
+                console.log("Autoplay video diblokir, pengguna harus mengklik play pada video.");
             });
 
-            // 3. Nonaktifkan tombol (agar tidak bisa diklik berulang kali)
+            // 3. Nonaktifkan tombol
             button.disabled = true;
             button.textContent = "Kejutan Dibuka!";
             button.style.background = "#aaaaaa";
+            button.style.boxShadow = "none";
+            button.style.cursor = "default";
+            button.querySelector('::before')?.remove(); 
 
-            // 4. Aktifkan efek kembang api (Confetti)
-            confetti({
-                particleCount: 150,
-                spread: 90,
-                origin: { y: 0.6 }
-            });
+            // 4. Aktifkan efek kembang api yang lebih meriah
+            const duration = 15 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
             
-            // 5. Tambahkan efek pop-up sederhana
+            // 5. Tampilkan pop-up sederhana
             alert("Happy Birthday, Teh Mangie! 🎉🥳");
         }
 
