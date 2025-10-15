@@ -119,7 +119,7 @@
 
         
         <p>Di hari yang istimewa ini, semoga Teh Mangie selalu diberikan kesehatan, kebahagiaan, dan segala cita-cita terbaik bisa tercapai.</p>
-        <p>Semoga tahun ini membawa lebih banyak tawa dan momen-momen indah. Dari kami yang selalu menyayangimu!</p>
+        <p>Semoga tahun ini membawa lebih banyak tawa dan momen-momen indah.</p>
 
         <button class="sparkle-button" onclick="celebrate()">Klik untuk Kejutan!</button>
         
@@ -130,6 +130,8 @@
         function celebrate() {
             // 1. Tampilkan pesan tersembunyi
             document.getElementById('special-message').style.display = 'block';
+          
+
 
             // 2. Aktifkan efek kembang api (Confetti)
             confetti({
@@ -139,7 +141,37 @@
             });
             
             // 3. Tambahkan efek pop-up sederhana
-            alert("Happy Birthday, Teh Mangie! 🎉🥳");
+            alert("Happy Birthday, Teh Mangie! 🎉🥳"); 
+            alert("    <div class="video-container" style="margin: 25px 0;">
+        <video 
+            src="lv_7558842258745789757_20251015222641.mp4" 
+            controls 
+            loop 
+            muted 
+            autoplay 
+            class="birthday-video"
+            style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"
+        >
+            Maaf, browser Anda tidak mendukung tag video.
+        </video>
+    </div>
+    ```
+
+### Penjelasan Atribut `<video>`:
+
+| Atribut | Fungsi | Keterangan |
+| :--- | :--- | :--- |
+| `src="videos/hbd-mangie.mp4"` | **WAJIB DIGANTI** | Ganti dengan jalur dan nama file video Anda yang persis. |
+| `controls` | **WAJIB** | Menampilkan tombol play/pause dan volume. |
+| `autoplay` | **Opsional** | Mencoba memutar video secara otomatis (sering diblokir oleh browser di HP). |
+| `muted` | **Penting!** | Memastikan video otomatis bisa diputar (*autoplay*) karena banyak *browser* hanya mengizinkan *autoplay* jika video dibisukan (*muted*). |
+| `loop` | **Opsional** | Memutar video berulang-ulang. |
+| `style="..."` | **CSS Inline** | Membuat video terlihat bagus dan responsif di HP (`max-width: 100%`). |
+
+4.  **Commit Perubahan:** Gulir ke bawah dan klik **Commit changes**.
+
+Setelah menunggu beberapa menit, kunjungi kembali tautan web Anda, dan video ucapan selamat ulang tahun untuk Teh Mangie akan muncul!
+") ;
         }
 
         // JS sederhana untuk mengganti warna border saat hover/sentuh
