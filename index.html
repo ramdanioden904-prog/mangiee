@@ -6,8 +6,8 @@
     <title>🌟 Happy Birthday Teh Mangie! 🥳</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    
-    
+
+
 <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
 
     <style>
@@ -162,7 +162,7 @@
             height: auto;
             display: block;
         }
-        
+
         /* Styling Pesan Tersembunyi - Container untuk video dan pesan teks */
         #special-content {
             margin-top: 25px;
@@ -183,7 +183,7 @@
             opacity: 1; 
             animation: none; 
         }
-        
+
         /* Tombol */
         .sparkle-button {
             background: linear-gradient(45deg, #00bcd4, #00e5ff); 
@@ -278,7 +278,7 @@
 </head>
 <body>
 
-    
+
 <div id="loading-overlay">
         <h2>🎉 Selamat Ulang Tahun 🎉</h2>
         <p>Ada kejutan spesial untuk Teh Mangie!</p>
@@ -286,19 +286,19 @@
     </div>
 
     <div class="card" id="birthdayCard">
-        
+
         <img src="Happy day^^ (3).jpg" alt="Foto Teh Mangie" class="birthday-image" id="target-image">
 
         <h1>Selamat Ulang Tahun!</h1>
         <h2>Untuk Teh Mangie 🎂🎊</h2>
-        
+
         <p>Di hari yang istimewa ini, semoga Teh Mangie selalu diberikan kesehatan, kebahagiaan, dan segala cita-cita terbaik bisa tercapai.</p>
         <p>Semoga tahun ini membawa lebih banyak tawa dan momen-momen indah.</p>
 
         <button class="sparkle-button" onclick="revealSurprise(this)">Clik Me!</button>
-        
+
         <div id="special-content"> 
-            
+
             <p>"Happy Birthday to Mangieee, Maaf yaa fotonya Dikitt,Harusnya Foto Bersama Tapi Enggak ada Jadi foto Teh Mangieee ajaa yang ada di IG ahahah:"</p>
 
             <div class="video-container">
@@ -317,7 +317,7 @@
         </div>
     </div>
 
-    
+
 <script>
         // Elemen-elemen DOM
         const loadingOverlay = document.getElementById('loading-overlay');
@@ -374,7 +374,7 @@
                 confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
                 confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
             }, 250);
-            
+
             // 5. Tampilkan pop-up sederhana
             alert("Happy Birthday Mangiee🎊🎂");
         }
